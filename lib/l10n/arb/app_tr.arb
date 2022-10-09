@@ -1,0 +1,7 @@
+{
+  "@@locale": "tr",
+  "counterAppBarTitle": "Sayaç",
+  "@counterAppBarTitle": {
+      "description": "Sayaç Sayfasının Uygulama Çubuğunda gösterilen metin"
+  }
+}
