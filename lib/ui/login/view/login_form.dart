@@ -95,7 +95,7 @@ class _EmailInput extends StatelessWidget {
           decoration: InputDecorationExtension.defaultInputDecoration(
             context,
             errorText: state.email.invalid ? 'invalid email' : null,
-            deviceWidth: context.width / 1.01,
+            boxConstraintsMaxWidth: context.width / 1.01,
             hintText: 'Enter Email Addres',
           ),
         );
@@ -118,7 +118,7 @@ class _PasswordInput extends StatelessWidget {
             decoration: InputDecorationExtension.defaultInputDecoration(context,
                 errorText: state.password.invalid ? 'invalid password' : null,
                 hintText: 'Enter password',
-                deviceWidth: context.width / 1.01));
+                boxConstraintsMaxWidth: context.width / 1.01));
       },
     );
   }

@@ -53,8 +53,10 @@ class App extends StatelessWidget {
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
       ],
-      theme: FiTheme().myTheme,
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
     );
