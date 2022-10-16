@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fishop/core/constants/enums/locale_keys_enum.dart';
+import 'package:fishop/core/init/localstorage/localstorage.dart';
 import 'package:fishop/ui/login/cubit/login_cubit.dart';
+import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -69,6 +73,9 @@ class SignupForm extends StatelessWidget {
           child: _PasswordInput(),
           padding: context.paddingLow,
         ),
+        UserIsLoggedIn(
+          key: key,
+        ),
         Padding(
           child: _LoginButton(),
           padding: context.paddingLow,
@@ -130,7 +137,7 @@ class _LoginButton extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess == true) {
-          context.go('/home');
+          context.go('/');
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
@@ -163,6 +170,37 @@ class _SignUpButton extends StatelessWidget {
       child: Text(
         'CREATE ACCOUNT',
       ),
+    );
+  }
+}
+
+class UserIsLoggedIn extends StatefulWidget {
+  UserIsLoggedIn({super.key});
+  LocaleManager localeManager = LocaleManager.instance;
+  bool userIsLoggedIn = false;
+  @override
+  State<UserIsLoggedIn> createState() => _UserIsLoggedInState();
+}
+
+class _UserIsLoggedInState extends State<UserIsLoggedIn> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      child: Row(
+        children: [
+          Checkbox(
+              onChanged: (value) {
+                setState(() {
+                  widget.userIsLoggedIn = !(widget.userIsLoggedIn);
+                });
+                widget.localeManager
+                    .setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
+              },
+              value: widget.userIsLoggedIn),
+          Text('save me')
+        ],
+      ),
+      padding: context.paddingMedium,
     );
   }
 }

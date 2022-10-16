@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fishop/app/bloc/app_bloc.dart';
+import 'package:fishop/core/constants/enums/locale_keys_enum.dart';
+import 'package:fishop/core/init/localstorage/localstorage.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:fishop/l10n/l10n.dart';
 import 'package:fishop/ui/home/view/home_screen.dart';
@@ -23,7 +26,7 @@ class App extends StatelessWidget {
     final GoRouter router = GoRouter(
       routes: <GoRoute>[
         GoRoute(
-          path: '/',
+          path: '/login',
           builder: (context, state) {
             return RepositoryProvider.value(
               value: _authenticationRepository,
@@ -41,13 +44,25 @@ class App extends StatelessWidget {
           },
         ),
         GoRoute(
-          path: '/home',
+          path: '/',
           builder: (context, state) {
-            return HomeScreen();
+            final firebaseUser = FirebaseAuth.instance.currentUser;
+            LocaleManager localeManager = LocaleManager.instance;
+            if (localeManager.getBoolValue(PreferencesKeys.USER_IS_LOGGED_IN) ==
+                    true &&
+                firebaseUser?.uid != null) {
+              return HomeScreen();
+            } else {
+              return RepositoryProvider.value(
+                value: _authenticationRepository,
+                child: LoginPage(),
+              );
+            }
           },
         )
       ],
     );
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [

@@ -1,3 +1,4 @@
+import 'package:fishop/core/init/localstorage/localstorage.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -10,7 +11,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this._authenticationRepository) : super(const LoginState());
 
   final AuthenticationRepository _authenticationRepository;
-
+  final LocaleManager localeManager = LocaleManager.instance;
   void emailChanged(String value) {
     final email = Email.dirty(value);
     emit(
