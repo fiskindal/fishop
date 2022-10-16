@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fishop/app/bloc/app_bloc.dart';
 import 'package:fishop/core/constants/enums/locale_keys_enum.dart';
 import 'package:fishop/core/init/localstorage/localstorage.dart';
+import 'package:fishop/ui/product-list/product-detail/product_detail.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:fishop/l10n/l10n.dart';
 import 'package:fishop/ui/home/view/home_screen.dart';
@@ -59,6 +60,10 @@ class App extends StatelessWidget {
               );
             }
           },
+        ),
+        GoRoute(
+          path: '/details',
+          builder: (context, state) => ProductDetails(),
         )
       ],
     );

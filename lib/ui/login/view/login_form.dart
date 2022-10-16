@@ -73,9 +73,6 @@ class SignupForm extends StatelessWidget {
           child: _PasswordInput(),
           padding: context.paddingLow,
         ),
-        UserIsLoggedIn(
-          key: key,
-        ),
         Padding(
           child: _LoginButton(),
           padding: context.paddingLow,
@@ -138,6 +135,9 @@ class _LoginButton extends StatelessWidget {
       listener: (context, state) {
         if (state.status.isSubmissionSuccess == true) {
           context.go('/');
+          BlocProvider.of<LoginCubit>(context, listen: true)
+              .localeManager
+              .setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
@@ -170,37 +170,6 @@ class _SignUpButton extends StatelessWidget {
       child: Text(
         'CREATE ACCOUNT',
       ),
-    );
-  }
-}
-
-class UserIsLoggedIn extends StatefulWidget {
-  UserIsLoggedIn({super.key});
-  LocaleManager localeManager = LocaleManager.instance;
-  bool userIsLoggedIn = false;
-  @override
-  State<UserIsLoggedIn> createState() => _UserIsLoggedInState();
-}
-
-class _UserIsLoggedInState extends State<UserIsLoggedIn> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      child: Row(
-        children: [
-          Checkbox(
-              onChanged: (value) {
-                setState(() {
-                  widget.userIsLoggedIn = !(widget.userIsLoggedIn);
-                });
-                widget.localeManager
-                    .setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
-              },
-              value: widget.userIsLoggedIn),
-          Text('save me')
-        ],
-      ),
-      padding: context.paddingMedium,
     );
   }
 }
