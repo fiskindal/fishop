@@ -10,7 +10,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: Key('login_screen'),
-      backgroundColor: Color(0xFFF6F6F6),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BlocProvider(

@@ -15,7 +15,7 @@ class ProductDetails extends StatelessWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => GoRouter.of(context).push('/'),
               )
             ],
           )

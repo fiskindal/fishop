@@ -35,7 +35,6 @@ class LoginForm extends StatelessWidget {
             height: context.height / 1.5,
             child: SignupForm(),
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(35), topRight: Radius.circular(35)),
             ),
@@ -128,16 +127,22 @@ class _PasswordInput extends StatelessWidget {
   }
 }
 
-class _LoginButton extends StatelessWidget {
+class _LoginButton extends StatefulWidget {
+  @override
+  State<_LoginButton> createState() => _LoginButtonState();
+}
+
+class _LoginButtonState extends State<_LoginButton> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status.isSubmissionSuccess == true) {
-          context.go('/');
-          BlocProvider.of<LoginCubit>(context, listen: true)
-              .localeManager
-              .setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
+          LocaleManager locale = LocaleManager.instance;
+          setState(() {
+            locale.setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
+            GoRouter.of(context).go('/');
+          });
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
@@ -152,7 +157,10 @@ class _LoginButton extends StatelessWidget {
                   ),
                 ),
                 onPressed: state.status.isValidated
-                    ? () => context.read<LoginCubit>().logInWithCredentials()
+                    ? () {
+                        context.read<LoginCubit>().logInWithCredentials();
+                        GoRouter.of(context).go('/');
+                      }
                     : null,
                 child: const Text('LOGIN'),
               );
