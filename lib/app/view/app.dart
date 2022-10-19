@@ -50,9 +50,9 @@ class App extends StatelessWidget {
           builder: (context, state) {
             final firebaseUser = FirebaseAuth.instance.currentUser;
             LocaleManager localeManager = LocaleManager.instance;
-            if (localeManager.getBoolValue(PreferencesKeys.USER_IS_LOGGED_IN) ==
-                    true &&
-                firebaseUser?.uid != null) {
+            if (firebaseUser?.uid != null ||
+                localeManager.getBoolValue(PreferencesKeys.USER_IS_LOGGED_IN) ==
+                    true) {
               return HomeScreen();
             } else {
               return RepositoryProvider.value(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
@@ -12,7 +13,7 @@ class SignUpForm extends StatelessWidget {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess) {
-          Navigator.of(context).pop();
+          GoRouter.of(context).pop();
         } else if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fishop/core/constants/enums/locale_keys_enum.dart';
 import 'package:fishop/core/init/localstorage/localstorage.dart';
@@ -26,6 +28,8 @@ class LoginForm extends StatelessWidget {
                 content: Text(state.errorMessage ?? 'Authentication Failure'),
               ),
             );
+        } else if (state.status.isSubmissionSuccess) {
+          GoRouter.of(context).go('/');
         }
       },
       child: Align(
@@ -127,22 +131,14 @@ class _PasswordInput extends StatelessWidget {
   }
 }
 
-class _LoginButton extends StatefulWidget {
-  @override
-  State<_LoginButton> createState() => _LoginButtonState();
-}
-
-class _LoginButtonState extends State<_LoginButton> {
+class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) async {
         if (state.status.isSubmissionSuccess == true) {
           LocaleManager locale = LocaleManager.instance;
-          setState(() {
-            locale.setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
-            GoRouter.of(context).go('/');
-          });
+          locale.setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
@@ -157,10 +153,7 @@ class _LoginButtonState extends State<_LoginButton> {
                   ),
                 ),
                 onPressed: state.status.isValidated
-                    ? () {
-                        context.read<LoginCubit>().logInWithCredentials();
-                        GoRouter.of(context).go('/');
-                      }
+                    ? () => context.read<LoginCubit>().logInWithCredentials()
                     : null,
                 child: const Text('LOGIN'),
               );
