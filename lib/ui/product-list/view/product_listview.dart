@@ -25,17 +25,20 @@ class ProductListView extends StatelessWidget {
             if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
               snapshot.fetchMore();
             }
-            return Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(blurRadius: 100),
-                ],
-              ),
-              child: GridTile(
-                  child: Card(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Column(
+            return GridTile(
+                child: Card(
+              semanticContainer: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Image.network(product.data().imgUrl as String,
+                        width: context.dynamicWidth(0.12),
+                        height: context.dynamicHeight(0.12)),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
                         product.data().productName.toString(),
@@ -46,24 +49,19 @@ class ProductListView extends StatelessWidget {
                       Text(
                         product.data().rating.toString(),
                       ),
-                      Image.network(
-                        product.data().imgUrl as String,
-                        height: context.height / 10,
-                        width: context.width / 10,
-                      ),
                       IconButton(
                         onPressed: () =>
                             context.go('/details', extra: product.id),
-                        icon: Icon(FontAwesomeIcons.buyNLarge),
+                        icon: Icon(FontAwesomeIcons.dollarSign),
                       )
                     ],
-                  ),
-                ),
-              )),
-            );
+                  )
+                ],
+              ),
+            ));
           },
           gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         );
       },
       query: productsRef
