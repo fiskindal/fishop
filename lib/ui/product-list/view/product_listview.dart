@@ -1,6 +1,5 @@
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:go_router/go_router.dart';
@@ -26,37 +25,40 @@ class ProductListView extends StatelessWidget {
               snapshot.fetchMore();
             }
             return GridTile(
-                child: Card(
-              semanticContainer: false,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    child: Image.network(product.data().imgUrl as String,
-                        width: context.dynamicWidth(0.12),
-                        height: context.dynamicHeight(0.12)),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        product.data().productName.toString(),
-                      ),
-                      Text(
-                        product.data().unitPrice.toString(),
-                      ),
-                      Text(
-                        product.data().rating.toString(),
-                      ),
-                      IconButton(
-                        onPressed: () =>
-                            context.go('/details', extra: product.id),
-                        icon: Icon(FontAwesomeIcons.dollarSign),
-                      )
-                    ],
-                  )
-                ],
+                child: GestureDetector(
+              onTap: () => GoRouter.of(context)
+                  .push('/product/${product.id}', extra: product.id),
+              child: Card(
+                semanticContainer: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      child: Image.network(product.data().imgUrl as String,
+                          width: context.dynamicWidth(0.12),
+                          height: context.dynamicHeight(0.12)),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          product.data().productName.toString(),
+                        ),
+                        Text(
+                          product.data().unitPrice.toString(),
+                        ),
+                        Text(
+                          product.data().rating.toString(),
+                        ),
+                        ElevatedButton(
+                          child: Text('add to cart'),
+                          onPressed: () => print('eklemedim' /**TODO: */),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ));
           },
