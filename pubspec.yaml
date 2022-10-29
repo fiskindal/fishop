@@ -5,14 +5,14 @@ publish_to: none
 
 environment:
   sdk: ">=2.18.2 <3.0.0"
-  flutter: 3.3.4
+  flutter: 3.3.6
 
 dependencies:
   banner_carousel: ^1.2.1
   bloc: ^8.1.0
-  connectivity_plus: ^2.3.8
+  connectivity_plus: ^3.0.2
   equatable: ^2.0.5
-  firebase_core: ^1.24.0
+  firebase_core: ^2.1.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
@@ -35,7 +35,7 @@ dependencies:
   fluttertoast: ^8.0.9
   flutterfire_ui: ^0.4.3+14
   flutter_rating_bar: ^4.0.1
-  firebase_auth: ^3.11.2
+  firebase_auth: ^4.1.0
 
 dev_dependencies:
   bloc_test: ^9.1.0
