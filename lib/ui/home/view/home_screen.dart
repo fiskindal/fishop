@@ -1,9 +1,11 @@
+import 'package:fishop/core/init/localstorage/localstorage.dart';
 import 'package:fishop/ui/home/cubit/home_cubit.dart';
 import 'package:fishop/ui/product-list/view/product_listview.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kartal/kartal.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +20,33 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      appBar: AppBar(
+        actions: [],
+      ),
+      drawer: Drawer(
+        child: ListView(children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(),
+            child: Text('Fishop'),
+          ),
+          ListTile(
+            title: const Text('Logout'),
+            onTap: () async {
+              final authenticationRepository = AuthenticationRepository();
+              await authenticationRepository.logOut();
+              LocaleManager _locale = LocaleManager.instance;
+              await _locale.clearAll();
+              GoRouter.of(context).go('/login');
+            },
+          ),
+          ListTile(
+            title: const Text('X'),
+            onTap: () {
+              GoRouter.of(context).pop();
+            },
+          ),
+        ]),
+      ),
       body: _buildBodyWidget(),
       bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {

@@ -29,7 +29,7 @@ class LoginForm extends StatelessWidget {
               ),
             );
         } else if (state.status.isSubmissionSuccess) {
-          GoRouter.of(context).go('/');
+          GoRouter.of(context).push('/');
         }
       },
       child: Align(
@@ -138,7 +138,9 @@ class _LoginButton extends StatelessWidget {
       listener: (context, state) async {
         if (state.status.isSubmissionSuccess == true) {
           LocaleManager locale = LocaleManager.instance;
-          locale.setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
+          if (FirebaseAuth.instance.currentUser?.uid != null) {
+            locale.setBoolValue(PreferencesKeys.USER_IS_LOGGED_IN, true);
+          }
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
@@ -167,7 +169,7 @@ class _SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       key: const Key('createAccount'),
-      onPressed: () => GoRouter.of(context).go('/signup'),
+      onPressed: () => GoRouter.of(context).push('/signup'),
       child: Text(
         'CREATE ACCOUNT',
       ),
