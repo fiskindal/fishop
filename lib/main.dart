@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fishop/app/app.dart';
 import 'package:fishop/bootstrap.dart';
 import 'package:fishop/ui/home/cubit/home_cubit.dart';
+import 'package:fishop/ui/product/product-list/bloc/productlist_bloc.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:fishop/firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,9 @@ void main() async {
           BlocProvider(
             create: (context) => HomeCubit(),
           ),
+          BlocProvider(
+            create: (context) => ProductlistBloc(),
+          )
         ],
         child: App(
           authenticationRepository: authenticationRepository,

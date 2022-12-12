@@ -1,8 +1,10 @@
+import 'package:fishop/ui/product/product-list/bloc/productlist_bloc.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductListView extends StatelessWidget {
   ProductListView({super.key});
@@ -66,11 +68,7 @@ class ProductListView extends StatelessWidget {
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         );
       },
-      query: productsRef
-          .orderByTrendProduct(
-            descending: true,
-          )
-          .reference,
+      query: BlocProvider.of<ProductlistBloc>(context).state.reference,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:fishop/core/init/localstorage/localstorage.dart';
 import 'package:fishop/ui/home/cubit/home_cubit.dart';
-import 'package:fishop/ui/product-list/view/product_listview.dart';
+import 'package:fishop/ui/product/product-list/view/product_listview.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
