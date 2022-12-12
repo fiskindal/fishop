@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum Durations {
   low(Duration(milliseconds: 500)),
   normal(Duration(seconds: 1)),

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fishop/core/init/localstorage/localstorage.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 
 import 'package:flutter/material.dart';

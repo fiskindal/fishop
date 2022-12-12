@@ -4,9 +4,7 @@ import 'package:fishop/ui/product-list/view/product_listview.dart';
 import 'package:fishop_firebase/fishop_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kartal/kartal.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -34,8 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () async {
               final authenticationRepository = AuthenticationRepository();
               await authenticationRepository.logOut();
-              LocaleManager _locale = LocaleManager.instance;
-              await _locale.clearAll();
+              LocaleManager locale = LocaleManager.instance;
+              await locale.clearAll();
               GoRouter.of(context).go('/login');
             },
           ),
@@ -51,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return BottomNavigationBar(
-            onTap: (value) => context.read<HomeCubit>().setCurrentIndex(value),
+            onTap: (value) {
+              context.read<HomeCubit>().setCurrentIndex(value);
+            },
             currentIndex: state.currentIndex,
             items: const [
               BottomNavigationBarItem(
@@ -63,7 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(
                     Icons.approval,
                   ),
-                  label: ''),
+                  label: 'cart'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.people,
+                  ),
+                  label: 'profile'),
             ],
           );
         },
@@ -75,10 +80,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
       switch (state.currentIndex) {
         case 0:
-          return const ProductListView();
+          return ProductListView();
         case 1:
           return Center(
             child: Text('ello'),
+          );
+        case 2:
+          return Center(
+            child: Text('sepet'),
           );
         default:
           return const Text("Wrong selection");

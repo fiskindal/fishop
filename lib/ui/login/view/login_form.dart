@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fishop/core/constants/enums/locale_keys_enum.dart';
 import 'package:fishop/core/init/localstorage/localstorage.dart';

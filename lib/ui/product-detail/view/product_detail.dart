@@ -47,20 +47,7 @@ class ProductDetails extends StatelessWidget {
                               data.title.toString(),
                             ),
                             Column(
-                              children: [
-                                RatingBar.builder(
-                                  initialRating: data.rating!,
-                                  minRating: 0,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemPadding:
-                                      EdgeInsets.symmetric(horizontal: 1),
-                                  itemBuilder: (context, _) => Icon(Icons.star),
-                                  onRatingUpdate: (value) =>
-                                      productsRef.doc(id).update(rating: value),
-                                )
-                              ],
+                              children: [Text('Burada rating bar olacak')],
                             )
                           ],
                         )

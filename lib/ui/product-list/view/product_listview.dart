@@ -5,7 +5,7 @@ import 'package:flutterfire_ui/firestore.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductListView extends StatelessWidget {
-  const ProductListView({super.key});
+  ProductListView({super.key});
 
   @override
   Widget build(BuildContext context) {
